@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Car() {
-    const carImage = "https://www.carscoops.com/wp-content/uploads/2019/11/1967-Ford-Mustang-Eleanor.jpg";
-    const carName = "Ford Mustang Shelby GT500 Eleanor 1967";
-    const carDescription = "Samochód na bazie Forda Mustanga zaprojektowany w latach 60 XX wieku w stylu muscle car.";
+function Car(props) {
+    const carImage = props.image;
+    const carName = props.name || "N/A";
+    const carDescription = props.description;
 
     return (
         <div>

@@ -1,15 +1,11 @@
 import React from 'react';
-import './App.css';
+import Car from './Car';
 
 function App() {
-  const user = { name: "Marek" }
-
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Witaj, {user.name}!
-        </p>
+        <Car />
       </header>
     </div>
   );

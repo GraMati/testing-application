@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Car(props) {
+const Car = (props) => {
     const carImage = props.image;
     const carName = props.name || "N/A";
     const carDescription = props.description;

@@ -13,6 +13,9 @@ function App() {
         <Car
           image="https://samochodyelektryczne.org/img/tesla_model_s/1/tesla_model_s_162.jpg"
           description="Elektryczny samochód klasy premium."
+          vin="1HGCM82633A123456"
+          color="Czarny"
+          displayDetails
         />
         <Car
           image="https://www.carscoops.com/wp-content/uploads/2019/11/1967-Ford-Mustang-Eleanor.jpg"

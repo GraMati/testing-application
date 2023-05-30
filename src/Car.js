@@ -18,6 +18,7 @@ const Car = (props) => {
                     <p>Kolor: {carColor}</p>
                 </div>
             )}
+            <button onClick={() => alert(carName)}>Pokaż nazwę</button>
         </div>
     );
 }

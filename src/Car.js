@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Car = (props) => {
     const carImage = props.image;
@@ -7,18 +7,22 @@ const Car = (props) => {
     const carVIN = props.vin;
     const carColor = props.color;
 
+    const [showDetails, setShowDetails] = useState(false);
+
     return (
         <div>
             <img src={carImage} alt={carName} />
             <h2>{carName}</h2>
             <p>{carDescription}</p>
-            {props.displayDetails && (
+            {showDetails && (
                 <div>
                     <p>VIN: {carVIN}</p>
                     <p>Kolor: {carColor}</p>
                 </div>
             )}
-            <button onClick={() => alert(carName)}>Pokaż nazwę</button>
+            <button onClick={() => setShowDetails(!showDetails)}>
+                {showDetails ? 'Ukryj szczegóły' : 'Pokaż szczegóły'}
+            </button>
         </div>
     );
 }

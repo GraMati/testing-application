@@ -23,6 +23,7 @@ const Car = (props) => {
             <button onClick={() => setShowDetails(!showDetails)}>
                 {showDetails ? 'Ukryj szczegóły' : 'Pokaż szczegóły'}
             </button>
+            <button onClick={() => alert(carName)}>Pokaż nazwę</button>
         </div>
     );
 }

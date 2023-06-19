@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Car from './Car';
 
 const Cars = () => {
+    const [displayedCars, setDisplayedCars] = useState([]);
+
     const carsData = [
         {
             image: "https://samochodyelektryczne.org/img/tesla_model_s/1/tesla_model_s_162.jpg",
@@ -26,20 +28,33 @@ const Cars = () => {
         }
     ];
 
-    return (
+    const handleAddCar = () => {
+        if (displayedCars.length >= 5) {
+          return;
+        }
+
+        const randomCar = carsData[Math.floor(Math.random() * carsData.length)];
+        setDisplayedCars(prevCars => [...prevCars, randomCar]);
+      };
+
+      return (
         <div>
-            {carsData.map((car, index) => (
-                <Car
-                    key={index}
-                    image={car.image}
-                    name={car.name}
-                    description={car.description}
-                    vin={car.vin}
-                    color={car.color}
-                />
-            ))}
+          <button onClick={handleAddCar} disabled={displayedCars.length >= 5}>
+            Dodaj samochód
+          </button>
+          {displayedCars.map((car, index) => (
+            <Car
+              key={index}
+              image={car.image}
+              name={car.name}
+              description={car.description}
+              vin={car.vin}
+              color={car.color}
+              displayDetails={true}
+            />
+          ))}
         </div>
-    );
-}
+      );
+    }
 
 export default Cars;

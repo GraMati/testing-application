@@ -34,6 +34,7 @@
 
 .cars-list {
     width: 500px;
+    margin: 0 auto;
 }
 
 .car {
@@ -42,5 +43,14 @@
 }
 
 .car:last-child {
+    border-bottom: none;
+}
+
+.car .car-details {
+    border-bottom: 10px solid #ccc;
+    padding-bottom: 5px;
+}
+
+.car .car-details:last-child {
     border-bottom: none;
 }

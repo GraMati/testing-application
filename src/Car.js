@@ -1,31 +1,33 @@
 import React, { useState } from 'react';
 
 const Car = (props) => {
-    const carImage = props.image;
-    const carName = props.name || "Not available";
-    const carDescription = props.description;
-    const carVIN = props.vin;
-    const carColor = props.color;
-
     const [showDetails, setShowDetails] = useState(false);
 
+    const toggleDetails = () => {
+        setShowDetails((prevState) => !prevState);
+    };
+
     return (
-        <div>
-            <img src={carImage} alt={carName} />
-            <h2>{carName}</h2>
-            <p>{carDescription}</p>
-            {showDetails && (
+        <div className="car">
+            <img src={props.image} alt={props.name} />
+            <h2>{props.name}</h2>
+            <p>{props.description}</p>
+
+            {props.displayDetails && (
                 <div>
-                    <p>VIN: {carVIN}</p>
-                    <p>Kolor: {carColor}</p>
+                    <button onClick={toggleDetails}>
+                        {showDetails ? "Ukryj szczegóły" : "Pokaż szczegóły"}
+                    </button>
+                    {showDetails && (
+                        <div className="car-details">
+                            <p>VIN: {props.vin}</p>
+                            <p>Kolor: {props.color}</p>
+                        </div>
+                    )}
                 </div>
             )}
-            <button onClick={() => setShowDetails(!showDetails)}>
-                {showDetails ? 'Ukryj szczegóły' : 'Pokaż szczegóły'}
-            </button>
-            <button onClick={() => alert(carName)}>Pokaż nazwę</button>
         </div>
     );
 }
 
-export default Car;
+    export default Car;

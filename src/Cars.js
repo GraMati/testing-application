@@ -27,7 +27,7 @@ const handleAddCar = (e) => {
         return;
     }
 
-    setDisplayedCars((prevCars) => [...prevCars, newCar]);
+    setDisplayedCars((prevCars) => [...prevCars, newCar].reverse());
     setNewCar({
         image: "",
         name: "",
@@ -92,15 +92,17 @@ const handleAddCar = (e) => {
 
             <div className="cars-list">
                 {displayedCars.map((car, index) => (
-                <Car
-                    key={index}
-                    image={car.image}
-                    name={car.name}
-                    description={car.description}
-                    vin={car.vin}
-                    color={car.color}
-                    displayDetails={true}
-                />
+                    <div key={index} className="car">
+                        <Car
+                            key={index}
+                            image={car.image}
+                            name={car.name}
+                            description={car.description}
+                            vin={car.vin}
+                            color={car.color}
+                            displayDetails={true}
+                        />
+                    </div>
                 ))}
             </div>
         </div>

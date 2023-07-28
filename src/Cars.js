@@ -27,7 +27,7 @@ const handleAddCar = (e) => {
         return;
     }
 
-    setDisplayedCars((prevCars) => [...prevCars, newCar].reverse());
+    setDisplayedCars([newCar, ...displayedCars]);
     setNewCar({
         image: "",
         name: "",

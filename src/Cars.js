@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Car from './Car';
+import './Cars.css';
 
 const Cars = () => {
     const [displayedCars, setDisplayedCars] = useState([]);
@@ -26,7 +27,7 @@ const handleAddCar = (e) => {
         return;
     }
 
-    setDisplayedCars((prevCars) => [...prevCars, newCar]);
+    setDisplayedCars([newCar, ...displayedCars]);
     setNewCar({
         image: "",
         name: "",
@@ -37,69 +38,75 @@ const handleAddCar = (e) => {
 };
 
     return (
-        <div>
-            <form onSubmit={handleAddCar}>
-                <label>
-                    Obrazek:
-                    <input
-                        type="text"
-                        name="image"
-                        value={newCar.image}
-                        onChange={handleInputChange}
-                    />
-                </label>
-                <label>
-                Nazwa:
-                <input
-                    type="text"
-                    name="name"
-                    value={newCar.name}
-                    onChange={handleInputChange}
-                />
-                </label>
-                <label>
-                Opis:
-                <input
-                    type="text"
-                    name="description"
-                    value={newCar.description}
-                    onChange={handleInputChange}
-                />
-                </label>
-                <label>
-                VIN:
-                <input
-                    type="text"
-                    name="vin"
-                    value={newCar.vin}
-                    onChange={handleInputChange}
-                />
-                </label>
-                <label>
-                Kolor:
-                <input
-                    type="text"
-                    name="color"
-                    value={newCar.color}
-                    onChange={handleInputChange}
-                />
-                </label>
-                <button type="submit">Dodaj samochód</button>
-            </form>
-
-            {displayedCars.map((car, index) => (
-                <Car
-                key={index}
-                image={car.image}
-                name={car.name}
-                description={car.description}
-                vin={car.vin}
-                color={car.color}
-                displayDetails={true}
-                />
-            ))}
+        <div className="cars-container">
+            <div className="form-container">
+                <form onSubmit={handleAddCar}>
+                    <label>
+                        Obrazek:
+                        <input
+                            type="text"
+                            name="image"
+                            value={newCar.image}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Nazwa:
+                        <input
+                            type="text"
+                            name="name"
+                            value={newCar.name}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Opis:
+                        <input
+                            type="text"
+                            name="description"
+                            value={newCar.description}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        VIN:
+                        <input
+                            type="text"
+                            name="vin"
+                            value={newCar.vin}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <label>
+                        Kolor:
+                        <input
+                            type="text"
+                            name="color"
+                            value={newCar.color}
+                            onChange={handleInputChange}
+                        />
+                    </label>
+                    <button type="submit">Dodaj samochód</button>
+                </form>
             </div>
-        );
-    }
+
+            <div className="cars-list">
+                {displayedCars.map((car, index) => (
+                    <div key={index} className="car">
+                        <Car
+                            key={index}
+                            image={car.image}
+                            name={car.name}
+                            description={car.description}
+                            vin={car.vin}
+                            color={car.color}
+                            displayDetails={true}
+                        />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
 
 export default Cars;

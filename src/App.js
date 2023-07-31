@@ -4,10 +4,10 @@ import Cars from './Cars';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app">
+      <main className="app-main">
         <Cars />
-      </header>
+      </main>
     </div>
   );
 }

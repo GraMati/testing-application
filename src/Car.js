@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 
-const Car = ({ image, name, description, displayDetails, vin, color }) => {
-    const [showDetails, setShowDetails] = useState(false);
-
-    const toggleDetails = () => {
-        setShowDetails((prevState) => !prevState);
-    };
-
+const Car = ({ image, name, description, vin, color, displayDetails, isExpanded, toggleDetails }) => {
     return (
         <div className="car">
             <img src={image} alt={name} />
@@ -16,9 +10,9 @@ const Car = ({ image, name, description, displayDetails, vin, color }) => {
             {displayDetails && (
                 <div>
                     <button onClick={toggleDetails}>
-                        {showDetails ? "Ukryj szczegóły" : "Pokaż szczegóły"}
+                        {isExpanded ? "Ukryj szczegóły" : "Pokaż szczegóły"}
                     </button>
-                    {showDetails && (
+                    {isExpanded && (
                         <div className="car-details">
                             <p>VIN: {vin}</p>
                             <p>Kolor: {color}</p>
@@ -28,6 +22,6 @@ const Car = ({ image, name, description, displayDetails, vin, color }) => {
             )}
         </div>
     );
-}
+};
 
 export default Car;

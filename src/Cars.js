@@ -42,6 +42,11 @@ const Cars = () => {
         setExpandedCarIndex((prevIndex) => (prevIndex === index ? -1 : index));
     };
 
+    const handleClearCars = () => {
+        setDisplayedCars([]);
+        setExpandedCarIndex(-1);
+    };
+
     return (
         <div className="cars-container">
             <div className="form-container">
@@ -93,6 +98,7 @@ const Cars = () => {
                     </label>
                     <button type="submit">Dodaj samochód</button>
                 </form>
+                    <button className="clear-btn" onClick={handleClearCars}>Wyczyść</button>
             </div>
 
             <div className="cars-list">

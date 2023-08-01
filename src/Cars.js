@@ -11,31 +11,36 @@ const Cars = () => {
         vin: "",
         color: ""
     });
+    const [expandedCarIndex, setExpandedCarIndex] = useState(-1);
 
-const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewCar((prevCar) => ({
-        ...prevCar,
-        [name]: value
-    }));
-};
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setNewCar((prevCar) => ({
+            ...prevCar,
+            [name]: value
+        }));
+    };
 
-const handleAddCar = (e) => {
-    e.preventDefault();
+    const handleAddCar = (e) => {
+        e.preventDefault();
 
-    if (displayedCars.length >= 5) {
-        return;
-    }
+        if (displayedCars.length >= 5) {
+            return;
+        }
 
-    setDisplayedCars([newCar, ...displayedCars]);
-    setNewCar({
-        image: "",
-        name: "",
-        description: "",
-        vin: "",
-        color: ""
-    });
-};
+        setDisplayedCars([newCar, ...displayedCars]);
+        setNewCar({
+            image: "",
+            name: "",
+            description: "",
+            vin: "",
+            color: ""
+        });
+    };
+
+    const toggleCarDetails = (index) => {
+        setExpandedCarIndex((prevIndex) => (prevIndex === index ? -1 : index));
+    };
 
     return (
         <div className="cars-container">
@@ -101,6 +106,8 @@ const handleAddCar = (e) => {
                             vin={car.vin}
                             color={car.color}
                             displayDetails={true}
+                            isExpanded={expandedCarIndex === index}
+                            toggleDetails={() => toggleCarDetails(index)}
                         />
                     </div>
                 ))}

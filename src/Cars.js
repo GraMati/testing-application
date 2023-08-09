@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Car from './Car';
 import './Cars.css';
 
@@ -12,6 +12,14 @@ const Cars = () => {
         color: ""
     });
     const [expandedCarIndex, setExpandedCarIndex] = useState(-1);
+    const imageInputRef = useRef(null);
+
+    useEffect(() => {
+        fetch('https://private-anon-70524326e9-carsapi1.apiary-mock.com/cars')
+            .then(response => response.json())
+            .then(data => setDisplayedCars(data))
+            .catch(error => console.error('Error fetching car data:', error));
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -58,6 +66,7 @@ const Cars = () => {
                             name="image"
                             value={newCar.image}
                             onChange={handleInputChange}
+                            ref={imageInputRef}
                         />
                     </label>
                     <label>

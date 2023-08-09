@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import Car from './Car';
 import './Cars.css';
 
@@ -15,10 +16,15 @@ const Cars = () => {
     const imageInputRef = useRef(null);
 
     useEffect(() => {
-        fetch('https://private-anon-70524326e9-carsapi1.apiary-mock.com/cars')
-            .then(response => response.json())
-            .then(data => setDisplayedCars(data))
-            .catch(error => console.error('Error fetching car data:', error));
+        console.log("Fetching car data from API...");
+        axios.get('https://private-anon-70524326e9-carsapi1.apiary-mock.com/cars')
+            .then(response => {
+                console.log("API response:", response.data);
+                setDisplayedCars(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching car data:', error);
+            });
     }, []);
 
     const handleInputChange = (e) => {

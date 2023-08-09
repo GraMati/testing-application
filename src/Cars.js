@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Car from './Car';
 import './Cars.css';
 
@@ -12,6 +12,11 @@ const Cars = () => {
         color: ""
     });
     const [expandedCarIndex, setExpandedCarIndex] = useState(-1);
+    const imageInputRef = useRef(null);
+
+    useEffect(() => {
+        imageInputRef.current.focus();
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -53,6 +58,7 @@ const Cars = () => {
                             name="image"
                             value={newCar.image}
                             onChange={handleInputChange}
+                            ref={imageInputRef}
                         />
                     </label>
                     <label>

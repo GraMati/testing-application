@@ -3,6 +3,32 @@ import axios from 'axios';
 import Car from './Car';
 import './Cars.css';
 
+const colorNames = [
+    'Red',
+    'Blue',
+    'Green',
+    'Silver',
+    'Purple',
+    'Brown',
+    'Black',
+    'White',
+];
+
+const getRandomColorName = () => {
+    const randomIndex = Math.floor(Math.random() * colorNames.length);
+    return colorNames[randomIndex];
+};
+
+const mapApiCarToComponentCar = (apiCar) => {
+    return {
+        image: apiCar.img_url,
+        name: `${apiCar.make} ${apiCar.model}`,
+        description: `Year: ${apiCar.year}, Horsepower: ${apiCar.horsepower}, Price: ${apiCar.price}`,
+        vin: apiCar.id,
+        color: getRandomColorName(),
+    };
+};
+
 const Cars = () => {
     const [displayedCars, setDisplayedCars] = useState([]);
     const [newCar, setNewCar] = useState({
@@ -10,17 +36,16 @@ const Cars = () => {
         name: "",
         description: "",
         vin: "",
-        color: ""
+        color: "",
     });
     const [expandedCarIndex, setExpandedCarIndex] = useState(-1);
     const imageInputRef = useRef(null);
 
     useEffect(() => {
-        console.log("Fetching car data from API...");
         axios.get('https://private-anon-70524326e9-carsapi1.apiary-mock.com/cars')
             .then(response => {
-                console.log("API response:", response.data);
-                setDisplayedCars(response.data);
+                const mappedCars = response.data.map(apiCar => mapApiCarToComponentCar(apiCar));
+                setDisplayedCars(mappedCars);
             })
             .catch(error => {
                 console.error('Error fetching car data:', error);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Car from './Car';
 import './Cars.css';
@@ -39,6 +39,11 @@ const Cars = () => {
         color: "",
     });
     const [expandedCarIndex, setExpandedCarIndex] = useState(-1);
+    const imageInputRef = useRef(null);
+
+    useEffect(() => {
+        imageInputRef.current.focus();
+    }, []);
     const imageInputRef = useRef(null);
 
     useEffect(() => {

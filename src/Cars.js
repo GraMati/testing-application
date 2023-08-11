@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Car from './Car';
 import './Cars.css';
@@ -44,7 +44,6 @@ const Cars = () => {
     useEffect(() => {
         imageInputRef.current.focus();
     }, []);
-    const imageInputRef = useRef(null);
 
     useEffect(() => {
         axios.get('https://private-anon-70524326e9-carsapi1.apiary-mock.com/cars')

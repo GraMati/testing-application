@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Car from './Car';
 import './Cars.css';
+import { fetchCarData } from '../src/services/carService';
 
 const colorNames = [
     'Red',
@@ -40,6 +41,16 @@ const Cars = () => {
     });
     const [expandedCarIndex, setExpandedCarIndex] = useState(-1);
     const imageInputRef = useRef(null);
+
+    useEffect(() => {
+        fetchCarData.getCarData()
+            .then(mappedCars => {
+                setDisplayedCars(mappedCars);
+            })
+            .catch(error => {
+                console.error('Error fetching car data:', error);
+            });
+    }, []);
 
     useEffect(() => {
         imageInputRef.current.focus();

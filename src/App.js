@@ -6,7 +6,7 @@ import store from '../src/redux/store/carStore';
 
 function App() {
   return (
-    <Provider store={store}>
+    <Provider store={store()}>
       <div className="app">
         <main className="app-main">
           <Cars />

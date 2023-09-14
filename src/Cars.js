@@ -1,37 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux'
+
 import Car from './Car';
 import './Cars.css';
-import { fetchCarData } from '../src/services/carService';
+import { requestCars } from '../src/redux/actions/carActions';
 
-const colorNames = [
-    'Red',
-    'Blue',
-    'Green',
-    'Silver',
-    'Purple',
-    'Brown',
-    'Black',
-    'White',
-];
-
-const getRandomColorName = () => {
-    const randomIndex = Math.floor(Math.random() * colorNames.length);
-    return colorNames[randomIndex];
-};
-
-const mapApiCarToComponentCar = (apiCar) => {
-    return {
-        image: apiCar.img_url,
-        name: `${apiCar.make} ${apiCar.model}`,
-        description: `Year: ${apiCar.year}, Horsepower: ${apiCar.horsepower}, Price: ${apiCar.price}`,
-        vin: apiCar.id,
-        color: getRandomColorName(),
-    };
-};
-
-const Cars = () => {
-    const [displayedCars, setDisplayedCars] = useState([]);
+const Cars = ({ requestCars, displayedCars = [] }) => {
+    // const [displayedCars, setDisplayedCars] = useState([]);
     const [newCar, setNewCar] = useState({
         image: "",
         name: "",
@@ -43,28 +18,11 @@ const Cars = () => {
     const imageInputRef = useRef(null);
 
     useEffect(() => {
-        fetchCarData.getCarData()
-            .then(mappedCars => {
-                setDisplayedCars(mappedCars);
-            })
-            .catch(error => {
-                console.error('Error fetching car data:', error);
-            });
-    }, []);
+        requestCars();
+    }, [requestCars]);
 
     useEffect(() => {
         imageInputRef.current.focus();
-    }, []);
-
-    useEffect(() => {
-        axios.get('https://private-anon-70524326e9-carsapi1.apiary-mock.com/cars')
-            .then(response => {
-                const mappedCars = response.data.map(apiCar => mapApiCarToComponentCar(apiCar));
-                setDisplayedCars(mappedCars);
-            })
-            .catch(error => {
-                console.error('Error fetching car data:', error);
-            });
     }, []);
 
     const handleInputChange = (e) => {
@@ -76,20 +34,20 @@ const Cars = () => {
     };
 
     const handleAddCar = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
 
-        if (displayedCars.length >= 5) {
-            return;
-        }
+        // if (displayedCars.length >= 5) {
+        //     return;
+        // }
 
-        setDisplayedCars([newCar, ...displayedCars]);
-        setNewCar({
-            image: "",
-            name: "",
-            description: "",
-            vin: "",
-            color: ""
-        });
+        // setDisplayedCars([newCar, ...displayedCars]);
+        // setNewCar({
+        //     image: "",
+        //     name: "",
+        //     description: "",
+        //     vin: "",
+        //     color: ""
+        // });
     };
 
     const toggleCarDetails = (index) => {
@@ -97,8 +55,8 @@ const Cars = () => {
     };
 
     const handleClearCars = () => {
-        setDisplayedCars([]);
-        setExpandedCarIndex(-1);
+        // setDisplayedCars([]);
+        // setExpandedCarIndex(-1);
     };
 
     return (
@@ -177,4 +135,13 @@ const Cars = () => {
     );
 }
 
-export default Cars;
+const mapStateToProps = ({ cars }) => ({
+    displayedCars: cars.data,
+})
+  
+  const mapDispatchToProps = (dispatch) => ({
+    requestCars: () => dispatch(requestCars()),
+  })
+  
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cars)

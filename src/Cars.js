@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 import Car from './Car';
 import './Cars.css';
-import { requestCars } from '../src/redux/actions/carActions';
+import { requestCars, addCar, clearCars } from '../src/redux/actions/carActions';
 
-const Cars = ({ requestCars, displayedCars = [] }) => {
-    // const [displayedCars, setDisplayedCars] = useState([]);
+const Cars = ({ requestCars, displayedCars = [], clearCars, addCar }) => {
     const [newCar, setNewCar] = useState({
         image: "",
         name: "",
@@ -14,6 +13,7 @@ const Cars = ({ requestCars, displayedCars = [] }) => {
         vin: "",
         color: "",
     });
+
     const [expandedCarIndex, setExpandedCarIndex] = useState(-1);
     const imageInputRef = useRef(null);
 
@@ -34,20 +34,17 @@ const Cars = ({ requestCars, displayedCars = [] }) => {
     };
 
     const handleAddCar = (e) => {
-        // e.preventDefault();
+        e.preventDefault();
 
-        // if (displayedCars.length >= 5) {
-        //     return;
-        // }
+        const carToAdd = {
+            image: newCar.image,
+            name: newCar.name,
+            description: newCar.description,
+            vin: newCar.vin,
+            color: newCar.color,
+        };
 
-        // setDisplayedCars([newCar, ...displayedCars]);
-        // setNewCar({
-        //     image: "",
-        //     name: "",
-        //     description: "",
-        //     vin: "",
-        //     color: ""
-        // });
+        addCar(carToAdd);
     };
 
     const toggleCarDetails = (index) => {
@@ -55,8 +52,7 @@ const Cars = ({ requestCars, displayedCars = [] }) => {
     };
 
     const handleClearCars = () => {
-        // setDisplayedCars([]);
-        // setExpandedCarIndex(-1);
+        clearCars();
     };
 
     return (
@@ -137,11 +133,13 @@ const Cars = ({ requestCars, displayedCars = [] }) => {
 
 const mapStateToProps = ({ cars }) => ({
     displayedCars: cars.data,
-})
-  
-  const mapDispatchToProps = (dispatch) => ({
-    requestCars: () => dispatch(requestCars()),
-  })
-  
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cars)
+const mapDispatchToProps = (dispatch) => ({
+    requestCars: () => dispatch(requestCars()),
+    addCar: (car) => dispatch(addCar(car)),
+    clearCars: () => dispatch(clearCars()),
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cars);

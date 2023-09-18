@@ -9,7 +9,7 @@ const carReducer = (state = initialState, action) => {
         case ADD_CAR:
             return {
                 ...state,
-                data: [...state.data, action.payload],
+                data: [action.payload, ...state.data],
             };
         case CLEAR_CARS:
             return {

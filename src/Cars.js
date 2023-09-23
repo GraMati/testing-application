@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 
 import Car from './Car';
 import './Cars.css';
@@ -16,6 +17,7 @@ const Cars = ({ requestCars, displayedCars = [], clearCars, addCar }) => {
 
     const [expandedCarIndex, setExpandedCarIndex] = useState(-1);
     const imageInputRef = useRef(null);
+    const history = useHistory();
 
     useEffect(() => {
         requestCars();
@@ -45,6 +47,8 @@ const Cars = ({ requestCars, displayedCars = [], clearCars, addCar }) => {
         };
 
         addCar(carToAdd);
+
+        history.push(`/cars/${carToAdd.vin}`);
     };
 
     const toggleCarDetails = (index) => {
@@ -113,17 +117,19 @@ const Cars = ({ requestCars, displayedCars = [], clearCars, addCar }) => {
             <div className="cars-list">
                 {displayedCars.map((car, index) => (
                     <div key={index} className="car">
-                        <Car
-                            key={index}
-                            image={car.image}
-                            name={car.name}
-                            description={car.description}
-                            vin={car.vin}
-                            color={car.color}
-                            displayDetails={true}
-                            isExpanded={expandedCarIndex === index}
-                            toggleDetails={() => toggleCarDetails(index)}
-                        />
+                    <Link to={`/cars/${car.vin}`}>
+                            <Car
+                                key={index}
+                                image={car.image}
+                                name={car.name}
+                                description={car.description}
+                                vin={car.vin}
+                                color={car.color}
+                                displayDetails={true}
+                                isExpanded={expandedCarIndex === index}
+                                toggleDetails={() => toggleCarDetails(index)}
+                            />
+                        </Link>
                     </div>
                 ))}
             </div>
@@ -140,6 +146,5 @@ const mapDispatchToProps = (dispatch) => ({
     addCar: (car) => dispatch(addCar(car)),
     clearCars: () => dispatch(clearCars()),
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cars);

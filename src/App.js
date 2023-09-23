@@ -1,18 +1,21 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Cars from './Cars';
-import { Provider } from 'react-redux';
-import store from '../src/redux/store/carStore';
+import CarDetails from './CarDetails';
 
 function App() {
   return (
-    <Provider store={store()}>
-      <div className="app">
-        <main className="app-main">
-          <Cars />
-        </main>
-      </div>
-    </Provider>
+    <div className="app">
+      <main className="app-main">
+        <Router> {/* Wrap your components with Router */}
+          <Switch> {/* Use Switch to render only the first matching route */}
+            <Route path="/" exact component={Cars} /> {/* Render Cars component for the home route */}
+            <Route path="/cars/:id" component={CarDetails} /> {/* Render CarDetails for car details */}
+          </Switch>
+        </Router>
+      </main>
+    </div>
   );
 }
 

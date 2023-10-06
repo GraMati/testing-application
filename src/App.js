@@ -1,18 +1,17 @@
 import React from 'react';
 import './App.css';
+import { Route, Routes } from 'react-router-dom';
 import Cars from './Cars';
-import { Provider } from 'react-redux';
-import store from '../src/redux/store/carStore';
+import CarDetails from './CarDetails';
 
 function App() {
   return (
-    <Provider store={store()}>
-      <div className="app">
-        <main className="app-main">
-          <Cars />
-        </main>
-      </div>
-    </Provider>
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Cars />} />
+        <Route path="/cars/:id" element={<CarDetails />} />
+      </Routes>
+    </div>
   );
 }
 

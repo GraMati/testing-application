@@ -45,6 +45,7 @@ const Cars = ({ requestCars, displayedCars = [], clearCars, addCar }) => {
         };
 
         addCar(carToAdd);
+
     };
 
     const toggleCarDetails = (index) => {
@@ -113,17 +114,17 @@ const Cars = ({ requestCars, displayedCars = [], clearCars, addCar }) => {
             <div className="cars-list">
                 {displayedCars.map((car, index) => (
                     <div key={index} className="car">
-                        <Car
-                            key={index}
-                            image={car.image}
-                            name={car.name}
-                            description={car.description}
-                            vin={car.vin}
-                            color={car.color}
-                            displayDetails={true}
-                            isExpanded={expandedCarIndex === index}
-                            toggleDetails={() => toggleCarDetails(index)}
-                        />
+                            <Car
+                                key={index}
+                                image={car.image}
+                                name={car.name}
+                                description={car.description}
+                                vin={car.vin}
+                                color={car.color}
+                                displayDetails={true}
+                                isExpanded={expandedCarIndex === index}
+                                toggleDetails={() => toggleCarDetails(index)}
+                            />
                     </div>
                 ))}
             </div>
@@ -140,6 +141,5 @@ const mapDispatchToProps = (dispatch) => ({
     addCar: (car) => dispatch(addCar(car)),
     clearCars: () => dispatch(clearCars()),
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cars);

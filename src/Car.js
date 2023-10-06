@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const Car = ({ image, name, description, vin, color, displayDetails, isExpanded, toggleDetails }) => {
     return (

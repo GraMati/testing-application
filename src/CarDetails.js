@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 const CarDetails = ({ displayedCars }) => {
     const { id } = useParams();
-    const car = displayedCars[id];
+    const car = displayedCars.find((car) => car.vin === id);
 
     if (!car) {
         return <div>Car not found</div>;
